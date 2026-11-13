@@ -1,0 +1,4 @@
+# 这一行同时激活「宿主半边」和 package.json 里声明的 dsh.client 网页半边。
+- insert:
+    - id: pdf-translate
+      name: 'dsh-pdf-translate'

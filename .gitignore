@@ -1,0 +1,5 @@
+﻿# 运行时是安装时从 Release 下的，不放进仓库
+runtime/babeldoc-runtime.zip
+*.tgz
+node_modules/
+__pycache__/
