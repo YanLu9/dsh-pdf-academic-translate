@@ -1,6 +1,6 @@
 {
   "name": "dsh-pdf-academic-translate",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "PDF 英译中：保版式翻译、译后体检、术语一致性（Windows，装完即用，自带便携运行时可一键安装）",
   "license": "MIT",
   "type": "module",

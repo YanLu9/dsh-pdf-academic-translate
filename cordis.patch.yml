@@ -1,4 +1,5 @@
 # 这一行同时激活「宿主半边」和 package.json 里声明的 dsh.client 网页半边。
+# ⚠️ name 必须与 package.json 的 name 完全一致，改名时一起改（scripts/verify-package.mjs 会检查）
 - insert:
     - id: pdf-translate
-      name: 'dsh-pdf-translate'
+      name: 'dsh-pdf-academic-translate'

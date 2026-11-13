@@ -79,8 +79,10 @@ def _resolve_key() -> tuple[str, str]:
         if found:
             return found[0], "deepseek"
     raise SystemExit(
-        "找不到 API key：插件会优先用 DSH 自己的凭据（%s 的 refs 段），"
-        "也可以在面板里填一个。" % CRED
+        "找不到可用的 API Key。\\n"
+        "  1) 面板「环境」里填一个 DeepSeek 的 sk- key（最省事）；\\n"
+        "  2) 或设环境变量 BABELDOC_API_KEY / OPENAI_API_KEY；\\n"
+        "  3) 旧版 DSH 会把 key 存在 %s 的 refs 段（新版存的是登录态，不是 key，会 401）。" % CRED
     )
 
 

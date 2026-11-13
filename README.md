@@ -1,16 +1,20 @@
-# dsh-pdf-translate
+# dsh-pdf-academic-translate
 
 在 DSH 设置页里加一个「PDF 翻译」面板：保版式翻译 → 自动修复 → 体检 → 术语一致性，最后给出成品 PDF。
 
 **Windows 10/11（64 位）**。插件自带 Python 和翻译流水线，装完点一次「一键安装」就能用，
-不需要自己装 Python、配环境变量、也不需要填 API Key（走 DSH 自己的 DeepSeek 凭据）。
+不需要自己装 Python、也不用配环境变量。
+
+**需要自己准备一个 API Key**（DeepSeek 的 sk-...，或任意 OpenAI 兼容接口）：
+DSH 的登录态**不是** API Key——它调不了模型；旧版 DSH 曾把 key 存在凭据库的 efs: 段，
+从 0.2.x 起改成了 ecords: 登录令牌，因此插件无法再自动取到 key。
 
 ## 安装
 
 **方式一：能直连 GitHub（海外或配好代理）**
 
 ```powershell
-dsh plugin --profile desktop add https://github.com/YanLu9/dsh-pdf-academic-translate/releases/download/v0.6.1/dsh-pdf-academic-translate-0.6.1.tgz
+dsh plugin --profile desktop add https://github.com/YanLu9/dsh-pdf-academic-translate/releases/download/v0.6.2/dsh-pdf-academic-translate-0.6.2.tgz
 ```
 
 **方式二：连不上 GitHub（国内常见）**
@@ -101,10 +105,36 @@ python tools\translate_auto.py "C:\path\to\paper.pdf" --glossary glossary\<你�
 ## 卸载
 
 ```powershell
-dsh plugin --profile desktop remove dsh-pdf-translate
+dsh plugin --profile desktop remove dsh-pdf-academic-translate
 ```
 配置留在 `~/.dsh/pdf-translate.json`，可手动删除。
 
+## API Key 怎么配
+
+面板「环境」卡片里有三个输入框：**模型 / 接口地址 / API Key**。默认是 DeepSeek：
+
+```
+模型       deepseek-chat
+接口地址   https://api.deepseek.com/v1
+API Key    sk-...（你自己的）
+```
+
+> **为什么不能像以前那样自动取 key？**
+> DSH 0.2.x 改了凭据库格式：以前是 `refs: DEEPSEEK_API_KEY: sk-...`，现在是 `records:` 里存**登录令牌**。
+> 登录令牌不是 API Key，拿它调 `api.deepseek.com` 会 401。所以插件现在只能：
+> ① 面板里填的 key → ② 环境变量 `BABELDOC_API_KEY` / `OPENAI_API_KEY` → ③ 旧格式 `refs:` 段（老版本 DSH 才有）。
+> 三者都没有时，面板顶部会直接显示「需要 API Key」，而不是等你点了才报错。
+
+## 命名对照（四个名字，别混）
+
+| 名称 | 值 | 用在哪 |
+|---|---|---|
+| 包名 / 仓库名 | `dsh-pdf-academic-translate` | `dsh plugin add`、卸载、市场条目 |
+| patch 行名 / 客户端模块 id | `dsh-pdf-academic-translate` | `cordis.patch.yml`、`client.js` 的 `load({id})`，**必须等于包名** |
+| 面板显示名 | `PDF 翻译` | 设置页里看到的 |
+| 后端路由前缀 / 数据目录 | `dsh-pdf-translate` | `lib/index.js` 的 `P`、`client.js` 的 `B`、`%LOCALAPPDATA%\dsh-pdf-translate`，**改名时不要动** |
+
+改包名时只需要改前两行，后两行保持不变；`node scripts/verify-package.mjs` 会帮你检查。
 ## 分发（发到市场 / 给别人装）
 
 - **插件包里不含任何术语表**：`package.json` 的 `files` 只放 `lib`、`cordis.patch.yml`、`README.md`，
