@@ -10,7 +10,7 @@
 **方式一：能直连 GitHub（海外或配好代理）**
 
 ```powershell
-dsh plugin --profile desktop add https://github.com/31415926LYly/dsh-pdf-translate/releases/download/v0.6.0/dsh-pdf-academic-translate-0.6.0.tgz
+dsh plugin --profile desktop add https://github.com/YanLu9/dsh-pdf-academic-translate/releases/download/v0.6.1/dsh-pdf-academic-translate-0.6.1.tgz
 ```
 
 **方式二：连不上 GitHub（国内常见）**
