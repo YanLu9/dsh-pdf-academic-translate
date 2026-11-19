@@ -5,16 +5,16 @@
 **Windows 10/11（64 位）**。插件自带 Python 和翻译流水线，装完点一次「一键安装」就能用，
 不需要自己装 Python、也不用配环境变量。
 
-**需要自己准备一个 API Key**（DeepSeek 的 sk-...，或任意 OpenAI 兼容接口）：
-DSH 的登录态**不是** API Key——它调不了模型；旧版 DSH 曾把 key 存在凭据库的 efs: 段，
-从 0.2.x 起改成了 ecords: 登录令牌，因此插件无法再自动取到 key。
+**不用填 API Key**：插件会借用 DSH 已经配好的模型（`ctx.llm`），在本地起一个 OpenAI 兼容桥，把 BabelDOC 的请求转过去。
+只有在 DSH 一个模型提供商都没配、或你想指定别的接口时，才需要在面板「环境」里填 key。
+
 
 ## 安装
 
 **方式一：能直连 GitHub（海外或配好代理）**
 
 ```powershell
-dsh plugin --profile desktop add https://github.com/YanLu9/dsh-pdf-academic-translate/releases/download/v0.6.2/dsh-pdf-academic-translate-0.6.2.tgz
+dsh plugin --profile desktop add https://github.com/YanLu9/dsh-pdf-academic-translate/releases/download/v0.6.4/dsh-pdf-academic-translate-0.6.4.tgz
 ```
 
 **方式二：连不上 GitHub（国内常见）**
